@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhojan.com — Home-cooked meals, delivered</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --saffron: #E8780A;
+    --saffron-light: #FEF3E2;
+    --saffron-dark: #B85E06;
+    --brown: #3D1A00;
+    --cream: #FFFAF4;
+    --text-main: #2A1400;
+    --text-muted: #7A5C3A;
+    --border: #E8D8C0;
+    --error: #C0392B;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text-main);
+    min-height: 100vh;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--saffron);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--brown); }
+
+  nav a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 1.5rem;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 65px);
+  }
+
+  .hero-left {
+    padding: 4rem 3rem 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, #FEF3E2 0%, #FFFAF4 100%);
+  }
+
+  .tagline {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    line-height: 1.15;
+    color: var(--brown);
+    margin-bottom: 1.2rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 2rem;
+  }
+
+  .stats {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--saffron);
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-right {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    border-left: 1px solid var(--border);
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .auth-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .auth-tab {
+    flex: 1;
+    padding: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .auth-tab.active {
+    color: var(--saffron);
+    border-bottom: 2px solid var(--saffron);
+  }
+
+  .auth-form { display: none; }
+  .auth-form.active { display: block; }
+
+  .auth-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--brown);
+    margin-bottom: 0.3rem;
+  }
+
+  .auth-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group { margin-bottom: 1rem; }
+
+  label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 0.35rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    background: #FFFAF4;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  input:focus {
+    border-color: var(--saffron);
+    background: #fff;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--saffron);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-primary:hover { background: var(--saffron-dark); }
+
+  .flash-msg {
+    background: #FDE8E8;
+    border: 1px solid #F5C6C6;
+    color: var(--error);
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .divider {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    margin: 1rem 0;
+    position: relative;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider::before { left: 0; }
+  .divider::after { right: 0; }
+
+  .switch-link {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+  }
+
+  .switch-link a {
+    color: var(--saffron);
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .features {
+    padding: 5rem 4rem;
+    background: #fff;
+    border-top: 1px solid var(--border);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 2.5rem auto 0;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--cream);
+  }
+
+  .feature-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 0.4rem;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .section-header {
+    text-align: center;
+  }
+
+  .section-header .tagline { display: inline-block; }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--brown);
+    margin-top: 0.5rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    background: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 2.5rem 1.5rem; }
+    h1 { font-size: 2.2rem; }
+    .features { padding: 3rem 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .hero-right { border-left: none; border-top: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Bhojan<span>.com</span></a>
+  <div>
+    <a href="#">How it works</a>
+    <a href="#">Plans</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="tagline">🍛 Tiffin Delivery Service</p>
+    <h1>Ghar ka khana, <em>every day</em>.</h1>
+    <p class="hero-desc">
+      Fresh, home-style meals delivered to your hostel or PG. Subscribe to your plan, set your taste preferences, and we handle the rest — hot meals, on time.
+    </p>
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Students</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Meals/day</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4.8★</div>
+        <div class="stat-label">Rating</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="auth-card">
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="flash-msg">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login', this)">Sign In</button>
+        <button class="auth-tab" onclick="switchTab('register', this)">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="login" class="auth-form active">
+        <h2 class="auth-title">Welcome back</h2>
+        <p class="auth-sub">Sign in to manage your tiffin plan.</p>
+        <form action="{{ url_for('login') }}" method="POST">
+          <div class="form-group">
+            <label for="login-email">Email address</label>
+            <input type="email" id="login-email" name="email" placeholder="you@college.edu" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn-primary">Sign in →</button>
+        </form>
+        <div class="switch-link">
+          Don't have an account? <a onclick="switchTabByName('register')">Register here</a>
+        </div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="register" class="auth-form">
+        <h2 class="auth-title">Join Bhojan.com</h2>
+        <p class="auth-sub">Create your account and pick your meal plan.</p>
+        <form action="{{ url_for('register') }}" method="POST">
+          <div class="form-group">
+            <label for="reg-name">Full name</label>
+            <input type="text" id="reg-name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-email">Email address</label>
+            <input type="email" id="reg-email" name="email" placeholder="you@college.edu" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-password">Password</label>
+            <input type="password" id="reg-password" name="password" placeholder="Min. 8 characters" required>
+          </div>
+          <button type="submit" class="btn-primary">Create account →</button>
+        </form>
+        <div class="switch-link">
+          Already have an account? <a onclick="switchTabByName('login')">Sign in</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="section-header">
+    <p class="tagline">Why students love us</p>
+    <h2>Everything you need, nothing you don't</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🌶️</div>
+      <h3>Taste Preferences</h3>
+      <p>Tell us your spice level, sweetness, and allergies. Every meal is customised for you.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>Daily Delivery</h3>
+      <p>Hot tiffins delivered to your door. Track your delivery live on your dashboard.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💳</div>
+      <h3>Recharge Plans</h3>
+      <p>Weekly, monthly, or quarterly plans. Pay once and forget about daily decisions.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Bhojan.com · Made by Darshil Sharma Developer of FairPay
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function switchTabByName(id) {
+    const tab = id === 'login' ? document.querySelectorAll('.auth-tab')[0] : document.querySelectorAll('.auth-tab')[1];
+    switchTab(id, tab);
+  }
+
+  // Auto-switch to register tab if URL has #register
+  if (window.location.hash === '#register') {
+    switchTabByName('register');
+  }
+</script>
+</body>
+</html>
