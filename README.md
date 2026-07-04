@@ -10,9 +10,8 @@ The source code, database architecture, Delivery Interface, Taste Preference Sys
 No part of this repository may be copied, modified, redistributed, reverse-engineered, or used commercially without prior written permission from the author.
 
 This repository is published solely for portfolio and demonstration purposes.
-# 👨‍💻 Developer
+# 👨‍💻 Developer - Darshil Sharma
 
-Darshil Sharma
 
 Python Full-Stack Developer • AI Enthusiast • Software Engineer
 
