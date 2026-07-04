@@ -12,7 +12,7 @@ No part of this repository may be copied, modified, redistributed, reverse-engin
 This repository is published solely for portfolio and demonstration purposes.
 # 👨‍💻 Developer
 
-#Darshil Sharma
+Darshil Sharma
 
 Python Full-Stack Developer • AI Enthusiast • Software Engineer
 
