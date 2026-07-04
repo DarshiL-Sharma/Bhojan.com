@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+
+<div class="ambient-bg">
+  <div class="blob blob--1"></div>
+  <div class="blob blob--2"></div>
+  <div class="grain"></div>
+</div>
+
+<nav class="topnav">
+    <div class="topnav__left">
+        <a class="topnav__back" onclick="history.back()" title="Go back">←</a>
+        <a href="{{ url_for('home') }}" class="logo">Bhojan<span>.com</span></a>
+    </div>
+    <div class="topnav__links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('dashboard') }}">Chat</a>
+        <a href="{{ url_for('place_order') }}">New Order</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</nav>
+
+<div class="page-shell page-shell--wide">
+    <div class="order-summary">
+        <div>
+            <h1 class="page-title">Order <span data-order-id="{{ order.id }}">#{{ order.id }}</span></h1>
+            <p class="page-sub" style="margin-bottom:0;">{{ order.customer_name }}</p>
+        </div>
+    </div>
+
+    <div id="status">Status: {{ order.status }}</div>
+
+    <div class="progress-labels">
+        <span>Placed</span>
+        <span>Paid</span>
+        <span>Out for Delivery</span>
+        <span>Delivered</span>
+    </div>
+    <div class="progress-track" id="progress-track">
+        <div class="dot"></div>
+        <div class="line"><div class="line-fill"></div></div>
+        <div class="dot"></div>
+        <div class="line"><div class="line-fill"></div></div>
+        <div class="dot"></div>
+        <div class="line"><div class="line-fill"></div></div>
+        <div class="dot"></div>
+    </div>
+
+    {% if order.status == 'Placed' %}
+        <form method="POST" action="{{ url_for('pay_order', order_id=order.id) }}" style="margin: 1.2rem 0;">
+            <button type="submit">Mark as Paid (Fake) 💳</button>
+        </form>
+    {% endif %}
+
+    <div id="map"></div>
+
+    {% if order.status == 'Paid' or order.status == 'Out for Delivery' %}
+        <button id="advance-btn" style="margin-top: 1.2rem;">Advance Delivery →</button>
+    {% endif %}
+
+    <div class="info-note">
+        <span>📍</span>
+        <span>The marker on the map updates live as your delivery partner moves. No need to refresh this page.</span>
+    </div>
+
+    <!-- Data only — no logic here. All behavior lives in main.js -->
+    <script>
+        window.__ORDER__ = {
+            orderId: {{ order.id }},
+            path: {{ path | tojson }},
+            deliveryStage: {{ order.delivery_stage }},
+            status: {{ order.status | tojson }}
+        };
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</div>
+</body>
+</html>
